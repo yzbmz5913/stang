@@ -1,5 +1,5 @@
 Hello, I am Stan Marsh. This project is my toy interpreted language, common usage supported.
-###usage:
+### usage:
 commandline mode:
 ```
 stang
@@ -9,8 +9,8 @@ parse multiple sourcecode files
 stang [filename...]
 ```
 Note that in the latter mode, the program will exit if the result cannot be evaluated in 3 seconds.
-###examples:
-####1.data types
+### examples:
+#### 1.data types
 ```
 let a = 1
 let b = 0.5
@@ -21,12 +21,12 @@ let g = {name:'stan'}
 let h = function(x,y) { return x+y }
 print(typeof a, typeof b, typeof c, typeof d, typeof e, typeof f, typeof g, typeof h)
 ```
-####output:
+#### output:
 ```
 INTEGER, FLOAT, BOOLEAN, STRING, ERROR, ARRAY, HASH, FUNCTION
 ```
 
-####2.operation:
+#### 2.operation:
 ```
 print(1+2.5)
 print("stan"+"marsh"+1)
@@ -45,7 +45,7 @@ delete h['arr'][0]
 delete h['name']
 print(h)
 ```
-####output:
+#### output:
 ```
 3.5
 stanmarsh1
@@ -76,19 +76,19 @@ The supported operators are:
 
 note that in Stang, all expression has a return value.  
 The return value of the program is the return value of the last statement or the last 'return' statement, if that exists.
-####3.function
+#### 3.function
 ```
 let f = function(x,f){
     return f(f(x))
 }
 f(2, function(x){return x*x})
 ```
-####output:
+#### output:
 ```
 16
 ```
 function is a first-class object in Stang.
-####4.control flow
+#### 4.control flow
 ```
 let f = function(x) {
     if (x>0) {
@@ -110,7 +110,7 @@ while (true) {
     }
 }
 ```
-####output:
+#### output:
 ```
 false
 false           
@@ -125,7 +125,7 @@ true
 true            
 true 
 ```
-####5.methods and builtin functions
+#### 5.methods and builtin functions
 ```
 print("stan,kyle".split(','))
 print("stan".toUpper().toLower())
@@ -140,7 +140,7 @@ arr.push(4)
 print(arr.pop())
 print(arr)
 ```
-####output:
+#### output:
 ```
 [stan, kyle]
 stan               
