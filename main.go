@@ -76,13 +76,12 @@ func runProgram(filename string) {
 
 func main() {
 	args := os.Args[1:]
-	if len(args) == 1 {
+	if len(args) == 0 {
 		fmt.Println("Welcome to use Stan's programming language(Stang)!")
 		fmt.Println("type in command line or pass in filenames as parameters to parse source code")
 		fmt.Println()
 		Start(os.Stdin, os.Stdout)
 	} else {
-		runProgram("test.st")
 		for _, arg := range args {
 			runProgram(arg)
 		}
