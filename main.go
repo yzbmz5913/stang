@@ -6,6 +6,7 @@ package stang
 import (
 	"bufio"
 	"context"
+	"errors"
 	"fmt"
 	"github.com/yzbmz5913/stang/evaluator"
 	"github.com/yzbmz5913/stang/lexer"
@@ -19,32 +20,33 @@ import (
 
 const prompt = ">> "
 
-func RunProgram(filename string) {
+func RunProgram(filename string) (string, error) {
 	wd, err := os.Getwd()
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
+		return "", err
 	}
 	f, err := ioutil.ReadFile(wd + "/" + filename)
 	if err != nil {
-		fmt.Println("monkey: ", err.Error())
-		os.Exit(1)
+		return "", err
 	}
 	l := lexer.New(string(f))
 	p := parser.New(l)
 	program := p.ParseProgram()
 	if len(p.Errors()) != 0 {
-		fmt.Println(p.Errors()[0])
-		os.Exit(1)
+		return "", errors.New(p.Errors()[0])
 	}
 	scope := evaluator.NewScope(nil)
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 	e := evaluator.Eval(ctx, program, scope)
-	fmt.Println("program returns:\n", e.String(0))
+	return e.String(0), nil
 }
 
 func StartCommandLine(in io.Reader, out io.Writer) {
+	fmt.Println("Welcome to use Stan's programming language(Stang)!")
+	fmt.Println("type in command line or pass in filenames as parameters to parse source code")
+	fmt.Println()
+
 	scanner := bufio.NewScanner(in)
 	scope := evaluator.NewScope(nil)
 	for {
