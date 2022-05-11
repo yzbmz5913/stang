@@ -20,16 +20,8 @@ import (
 
 const prompt = ">> "
 
-func RunProgram(filename string) (string, error) {
-	wd, err := os.Getwd()
-	if err != nil {
-		return "", err
-	}
-	f, err := ioutil.ReadFile(wd + "/" + filename)
-	if err != nil {
-		return "", err
-	}
-	l := lexer.New(string(f))
+func RunProgram(sourcecode string) (string, error) {
+	l := lexer.New(sourcecode)
 	p := parser.New(l)
 	program := p.ParseProgram()
 	if len(p.Errors()) != 0 {
@@ -40,6 +32,18 @@ func RunProgram(filename string) (string, error) {
 	defer cancel()
 	e := evaluator.Eval(ctx, program, scope)
 	return e.String(0), nil
+}
+
+func RunFile(filename string) (string, error) {
+	wd, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
+	f, err := ioutil.ReadFile(wd + "/" + filename)
+	if err != nil {
+		return "", err
+	}
+	return RunProgram(string(f))
 }
 
 func StartCommandLine(in io.Reader, out io.Writer) {

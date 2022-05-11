@@ -10,6 +10,6 @@ func main() {
 	if len(args) == 1 {
 		stang.StartCommandLine(os.Stdin, os.Stdout)
 	} else {
-		stang.RunProgram(os.Args[0])
+		stang.RunFile(os.Args[0])
 	}
 }
