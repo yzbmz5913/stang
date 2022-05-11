@@ -3,8 +3,8 @@ package evaluator
 import (
 	"bytes"
 	"fmt"
+	"github.com/yzbmz5913/stang/ast"
 	"hash/fnv"
-	"stang/ast"
 	"strconv"
 	"strings"
 )

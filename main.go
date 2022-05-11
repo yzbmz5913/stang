@@ -4,12 +4,12 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"github.com/yzbmz5913/stang/evaluator"
+	"github.com/yzbmz5913/stang/lexer"
+	"github.com/yzbmz5913/stang/parser"
 	"io"
 	"io/ioutil"
 	"os"
-	"stang/evaluator"
-	"stang/lexer"
-	"stang/parser"
 	"strings"
 	"time"
 )
@@ -76,14 +76,15 @@ func runProgram(filename string) {
 
 func main() {
 	args := os.Args[1:]
-	if len(args) == 0 {
+	if len(args) == 1 {
 		fmt.Println("Welcome to use Stan's programming language(Stang)!")
 		fmt.Println("type in command line or pass in filenames as parameters to parse source code")
 		fmt.Println()
 		Start(os.Stdin, os.Stdout)
 	} else {
-		for _, arg := range args {
-			runProgram(arg)
-		}
+		//for _, arg := range args {
+		//	runProgram(arg)
+		//}
+		runProgram("test.my")
 	}
 }

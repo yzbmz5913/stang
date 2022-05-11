@@ -2,7 +2,7 @@ package lexer
 
 import (
 	"errors"
-	"stang/token"
+	"github.com/yzbmz5913/stang/token"
 )
 
 type Lexer struct {

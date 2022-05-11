@@ -2,7 +2,7 @@ package ast
 
 import (
 	"bytes"
-	"stang/token"
+	"github.com/yzbmz5913/stang/token"
 	"strings"
 )
 

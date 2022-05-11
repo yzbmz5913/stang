@@ -2,8 +2,8 @@ package evaluator
 
 import (
 	"context"
+	"github.com/yzbmz5913/stang/ast"
 	"math"
-	"stang/ast"
 )
 
 var (

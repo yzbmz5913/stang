@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"stang/ast"
-	"stang/lexer"
-	"stang/token"
+	"github.com/yzbmz5913/stang/ast"
+	"github.com/yzbmz5913/stang/lexer"
+	"github.com/yzbmz5913/stang/token"
 )
 
 const (

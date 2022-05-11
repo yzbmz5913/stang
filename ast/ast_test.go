@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"stang/token"
+	"github.com/yzbmz5913/stang/token"
 	"testing"
 )
 

@@ -2,8 +2,8 @@ package parser
 
 import (
 	"fmt"
-	"stang/ast"
-	"stang/token"
+	"github.com/yzbmz5913/stang/ast"
+	"github.com/yzbmz5913/stang/token"
 	"strconv"
 )
 
