@@ -1,4 +1,7 @@
-package main
+/*
+	Stang is a simple interpreter implemented in Go
+*/
+package stang
 
 import (
 	"bufio"
@@ -14,42 +17,9 @@ import (
 	"time"
 )
 
-const PROMPT = ">> "
+const prompt = ">> "
 
-func Start(in io.Reader, out io.Writer) {
-	scanner := bufio.NewScanner(in)
-	scope := evaluator.NewScope(nil)
-	for {
-		fmt.Printf(PROMPT)
-		scanned := scanner.Scan()
-		if !scanned {
-			return
-		}
-		line := scanner.Text()
-		if strings.ToLower(line) == "exit" {
-			_, _ = io.WriteString(out, "bye")
-			return
-		}
-		l := lexer.New(line)
-		p := parser.New(l)
-		program := p.ParseProgram()
-		if len(p.Errors()) != 0 {
-			printParserErrors(out, p.Errors())
-			continue
-		}
-		result := evaluator.Eval(context.Background(), program, scope)
-		if result != nil {
-			_, _ = io.WriteString(out, result.String(0))
-			_, _ = io.WriteString(out, "\n")
-		}
-	}
-}
-func printParserErrors(out io.Writer, errors []string) {
-	for _, msg := range errors {
-		_, _ = io.WriteString(out, "Error: "+msg+"\n")
-	}
-}
-func runProgram(filename string) {
+func RunProgram(filename string) {
 	wd, err := os.Getwd()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -74,17 +44,37 @@ func runProgram(filename string) {
 	fmt.Println("program returns:\n", e.String(0))
 }
 
-func main() {
-	args := os.Args[1:]
-	if len(args) == 1 {
-		fmt.Println("Welcome to use Stan's programming language(Stang)!")
-		fmt.Println("type in command line or pass in filenames as parameters to parse source code")
-		fmt.Println()
-		Start(os.Stdin, os.Stdout)
-	} else {
-		//for _, arg := range args {
-		//	runProgram(arg)
-		//}
-		runProgram("test.my")
+func StartCommandLine(in io.Reader, out io.Writer) {
+	scanner := bufio.NewScanner(in)
+	scope := evaluator.NewScope(nil)
+	for {
+		fmt.Printf(prompt)
+		scanned := scanner.Scan()
+		if !scanned {
+			return
+		}
+		line := scanner.Text()
+		if strings.ToLower(line) == "exit" {
+			_, _ = io.WriteString(out, "bye")
+			return
+		}
+		l := lexer.New(line)
+		p := parser.New(l)
+		program := p.ParseProgram()
+		if len(p.Errors()) != 0 {
+			printParserErrors(out, p.Errors())
+			continue
+		}
+		result := evaluator.Eval(context.Background(), program, scope)
+		if result != nil {
+			_, _ = io.WriteString(out, result.String(0))
+			_, _ = io.WriteString(out, "\n")
+		}
+	}
+}
+
+func printParserErrors(out io.Writer, errors []string) {
+	for _, msg := range errors {
+		_, _ = io.WriteString(out, "Error: "+msg+"\n")
 	}
 }
